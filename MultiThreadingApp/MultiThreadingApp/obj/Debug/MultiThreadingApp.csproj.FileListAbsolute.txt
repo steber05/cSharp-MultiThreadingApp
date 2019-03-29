@@ -1,0 +1,6 @@
+D:\code\local\cSharp\source\repos\MultiThreadingApp\MultiThreadingApp\bin\Debug\MultiThreadingApp.exe.config
+D:\code\local\cSharp\source\repos\MultiThreadingApp\MultiThreadingApp\bin\Debug\MultiThreadingApp.exe
+D:\code\local\cSharp\source\repos\MultiThreadingApp\MultiThreadingApp\bin\Debug\MultiThreadingApp.pdb
+D:\code\local\cSharp\source\repos\MultiThreadingApp\MultiThreadingApp\obj\Debug\MultiThreadingApp.csproj.CoreCompileInputs.cache
+D:\code\local\cSharp\source\repos\MultiThreadingApp\MultiThreadingApp\obj\Debug\MultiThreadingApp.exe
+D:\code\local\cSharp\source\repos\MultiThreadingApp\MultiThreadingApp\obj\Debug\MultiThreadingApp.pdb
