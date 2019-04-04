@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Diagnostics;
 
 namespace MultiThreadingApp
 {
@@ -16,17 +17,28 @@ namespace MultiThreadingApp
 
         public static void Main(String[] args)
         {
-            max = 0;
-            string file;// = "C:\\Users\\stevi\\Desktop\\ints.txt";
-            //Read file to array
+            //Variables
+            Stopwatch aTimer = new Stopwatch();
+            Stopwatch bTimer = new Stopwatch();
+            string file;
+
+
+            //get user input for file and intialize array
             System.Console.WriteLine("Enter a file path: ");
             file = Console.ReadLine();
+            Console.Clear();
             string[] arr = System.IO.File.ReadAllLines(file);
             a = new long[arr.Length];
             for (int i = 0; i < arr.Length; i++)
             {
                 a[i] = long.Parse(arr[i]);
             }
+
+            //multithreading
+            //set first timer to start
+            aTimer.Start();
+            max = 0;
+            Console.WriteLine("\t\tMultithreading");
             //Threading
             ThreadStart threadStart1 = new ThreadStart(FindMaxOne);
             Thread thread1 = new Thread(threadStart1);
@@ -34,13 +46,33 @@ namespace MultiThreadingApp
             ThreadStart threadStart2 = new ThreadStart(FindMaxTwo);
             Thread thread2 = new Thread(threadStart2);
             thread2.Start();
-            //setup sleep times. get wrong outputs everytime i ran with no sleep timers
+            //setup sleep times for threads. get wrong outputs everytime i ran with no sleep timers
             while (thread1.IsAlive || thread2.IsAlive)
             {
                 Thread.Sleep(5);
             }
-            //Output maximum to console
+            //output maximum to console
             System.Console.WriteLine("The maximum number in the array is: {0}", max);
+            //stop first timer and output elapsed time
+            aTimer.Stop();
+            Console.WriteLine("Multithreaded proccess time: {0}", aTimer.Elapsed);
+
+
+            //Single Thread
+            //start second timer
+            bTimer.Start();
+            max = 0;
+            Console.WriteLine("\n\n\n\t\t Single Thread");
+            SingleThread();
+            //output maximum to console
+            System.Console.WriteLine("The maximum number in the array is: {0}", max);
+            //stop second timer and output elapsed time
+            bTimer.Stop();
+            Console.WriteLine("Singlethreaded proccess time: {0}", bTimer.Elapsed);
+            
+
+            //prompt end of program
+            Console.WriteLine("\n\nPress enter to exit...");
             Console.ReadLine();
             return;
         }
@@ -49,14 +81,14 @@ namespace MultiThreadingApp
         //Made the array a static global variable to work around this
         public static void FindMaxOne()
         {
-            for (int i = 0; i < a.Length / 2; i++) lock (thisLock)
+            for (int i = 0; i <= a.Length / 2; i++) lock (thisLock)
                 {
                     if (a[i] > max)
                     {
                         max = a[i];
                     }
                 }
-        }
+        }//end of FindMaxOne
 
         public static void FindMaxTwo()
         {
@@ -67,6 +99,17 @@ namespace MultiThreadingApp
                         max = a[j];
                     }
                 }
-        }
+        }//end of FindMaxTwo
+
+        public static void SingleThread()
+        {
+            for (int k=0;k<a.Length;k++)
+            {
+                if(a[k] > max)
+                {
+                    max = a[k];
+                }
+            }
+        }//end of SingleThread
     }
 }
